@@ -26,6 +26,8 @@ public class Simulator {
 	private static void initSimulation(File file) throws SimulationException {
 		try {
 			br = new BufferedReader(new FileReader(file));
+			// System.out.println(br.readLine());
+			FileW.setFileName("simulation.txt");
 			simulationCycles = Integer.parseInt(br.readLine());
 		} catch (NumberFormatException | IOException e) {
 			throw new SimulationException(e);
@@ -42,13 +44,14 @@ public class Simulator {
 					Integer.parseInt(info[3]), Integer.parseInt(info[4])).registerTower(tower);
 			}
 			br.close();
-		} catch (IOException e) {
+		} catch (IOException | AvajException | NumberFormatException e) {
 			throw new SimulationException(e);
 		}
 	}
 	
 	public static void main(String[] args) {
 		if (args.length < 1) { 
+			System.out.println("No arguments were found");
 			return;
 		}
 		

@@ -22,21 +22,24 @@ public class Baloon extends Aircraft implements Flyable {
                     this.coordinates.getLatitude(),
                     this.coordinates.getHeight() + 4
                 );
-                FileW.print(this.coordinates.toString()+": HEY GOOGLE can baloons melt");
+                FileW.print(this.toString("Baloon")+": HEY GOOGLE can baloons melt");
+                break;
             case "RAIN":
                 this.coordinates = new Coordinates(
                     this.coordinates.getLongitude(),
                     this.coordinates.getLatitude(),
                     this.coordinates.getHeight() - 5
                 );
-                FileW.print(this.coordinates.toString()+": Alexa can rain break my baloon");
+                FileW.print(this.toString("Baloon")+": Alexa can rain break my baloon");
+                break;
             case "FOG":
                 this.coordinates = new Coordinates(
                     this.coordinates.getLongitude(),
                     this.coordinates.getLatitude(),
                     this.coordinates.getHeight() - 3
                 );
-                FileW.print(this.coordinates.toString()+": Amazon where am I.");
+                FileW.print(this.toString("Baloon")+": Amazon where am I.");
+                break;    
             default:
             case "SNOW":
                 this.coordinates = new Coordinates(
@@ -44,11 +47,12 @@ public class Baloon extends Aircraft implements Flyable {
                     this.coordinates.getLatitude(),
                     this.coordinates.getHeight() - 15
                 );
-                FileW.print(this.toString()+": Calculator what is Baloon + snow");
+                FileW.print(this.toString("Baloon")+": Calculator what is Baloon + snow");
         }
         if (this.coordinates.getHeight() <= 0) {
             this.weatherTower.unregister(this);
-            FileW.print("Tower sas: " + this.toString() + " registered to weather tower.");
+            FileW.print(this.toString("Baloon")+": landing.");
+            FileW.print("Tower says: " + this.toString("Baloon") + " unregistered to weather tower.");
         }
 
     }
@@ -58,7 +62,7 @@ public class Baloon extends Aircraft implements Flyable {
         if (weatherTower != null) {
             this.weatherTower = weatherTower;
             this.weatherTower.register(this);
-            FileW.print("Tower sas: " + this.toString() + " registered to weather tower.");
+            FileW.print("Tower says: " + this.toString("Baloon") + " registered to weather tower.");
         }
     }
     

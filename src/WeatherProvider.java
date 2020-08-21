@@ -1,5 +1,7 @@
 package src;
 
+import java.util.Random;
+
 public class WeatherProvider {
 
     static private WeatherProvider weatherProvider;
@@ -15,10 +17,10 @@ public class WeatherProvider {
     }
 
     public String getCurrentWeather(Coordinates coordinates) {
-        int n = coordinates.getHeight() * 3 + coordinates.getLatitude() * 2;
-        n += coordinates.getLongitude();
+        int n = coordinates.getHeight() * (new Random().nextInt(5)) + coordinates.getLatitude() * (new Random().nextInt(5));
+        n += coordinates.getLongitude() * (new Random().nextInt(5));
 
-        switch ((int)((n%4)-0.1)){
+        switch ((int)((n%4))){
             case 0:
                 return "SUN";
             case 1:

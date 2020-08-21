@@ -10,7 +10,7 @@ public abstract class FileW {
     private static File file;
     private static BufferedWriter p;
 
-    public void setFileName(String name) {
+    public static void setFileName(String name) {
         FileW.name = name;
         try {
             FileW.file = new File(name);

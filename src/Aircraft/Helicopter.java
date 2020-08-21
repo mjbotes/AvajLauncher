@@ -23,21 +23,24 @@ public class Helicopter extends Aircraft implements Flyable {
                     this.coordinates.getLatitude(),
                     this.coordinates.getHeight() + 2
                 );
-                FileW.print(this.coordinates.toString()+": I should've stayed home");
+                FileW.print(this.toString("Helicopter")+": I should've stayed home");
+                break;
             case "RAIN":
                 this.coordinates = new Coordinates(
                     this.coordinates.getLongitude() + 5,
                     this.coordinates.getLatitude(),
                     this.coordinates.getHeight()
                 );
-                FileW.print(this.coordinates.toString()+": Well at least I'm not in a bloon");
+                FileW.print(this.toString("Helicopter")+": Well at least I'm not in a bloon");
+                break;
             case "FOG":
                 this.coordinates = new Coordinates(
                     this.coordinates.getLongitude() + 1,
                     this.coordinates.getLatitude(),
                     this.coordinates.getHeight()
                 );
-                FileW.print(this.coordinates.toString()+": What a FROG!!");
+                FileW.print(this.toString("Helicopter")+": What a FROG!!");
+                break;
             default:
             case "SNOW":
                 this.coordinates = new Coordinates(
@@ -45,11 +48,12 @@ public class Helicopter extends Aircraft implements Flyable {
                     this.coordinates.getLatitude(),
                     this.coordinates.getHeight() - 12
                 );
-                FileW.print(this.coordinates.toString()+": I should've become a doctor likr my dad wanted.");
+                FileW.print(this.toString("Helicopter")+": I should've become a doctor likr my dad wanted.");
         }
         if (this.coordinates.getHeight() <= 0) {
             this.weatherTower.unregister(this);
-            FileW.print("Tower sas: " + this.toString() + " registered to weather tower.");
+            FileW.print(this.toString("Helicopter")+": landing.");
+            FileW.print("Tower says: " + this.toString("Helicopter") + " unregistered to weather tower.");
         }
 
     }
@@ -59,7 +63,7 @@ public class Helicopter extends Aircraft implements Flyable {
         if (weatherTower != null) {
             this.weatherTower = weatherTower;
             this.weatherTower.register(this);
-            FileW.print("Tower sas: " + this.toString() + " registered to weather tower.");
+            FileW.print("Tower says: " + this.toString("Helicopter") + " registered to weather tower.");
         }
     }
 }

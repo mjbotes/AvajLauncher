@@ -10,9 +10,9 @@ public abstract class AircraftFactory {
             case "Helicopter":
                 return new Helicopter(name, new Coordinates(longitude, latitude, height));
             case "JetPlane":
-                return new Helicopter(name, new Coordinates(longitude, latitude, height));
+                return new JetPlane(name, new Coordinates(longitude, latitude, height));
             case "Baloon":
-                return new Helicopter(name, new Coordinates(longitude, latitude, height));
+                return new Baloon(name, new Coordinates(longitude, latitude, height));
             default:
                 throw new AvajException(
                         "ERROR. is it a bird? is it a plane? Whatever it is I dont know: '" + type + "'");
