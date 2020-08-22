@@ -9,43 +9,35 @@ import src.Aircraft.AircraftFactory;
 
 public class Simulator {
 	
-	public static class SimulationException extends Exception {
-		private static final long serialVersionUID = -1928219242566779452L;
-
-		public SimulationException() { super(); }
-		public SimulationException(String exception) { super (exception); }
-		public SimulationException(Throwable exception) { super (exception); }
-	}
-	
-	private static int simulationCycles;
-	private static BufferedReader br;
-	private static String currentLine;
+	private static int cycles;
+	private static BufferedReader reader;
+	private static String cLine;
 	
 	private static WeatherTower tower;
 	
-	private static void initSimulation(File file) throws SimulationException {
+	private static void initSimulation(File file) throws AvajException {
 		try {
-			br = new BufferedReader(new FileReader(file));
-			// System.out.println(br.readLine());
+			reader = new BufferedReader(new FileReader(file));
 			FileW.setFileName("simulation.txt");
-			simulationCycles = Integer.parseInt(br.readLine());
+			cycles = Integer.parseInt(reader.readLine());
 		} catch (NumberFormatException | IOException e) {
-			throw new SimulationException(e);
+			throw new AvajException(e.getMessage());
 		}
 	}
 	
-	private static void loadAircrafts() throws SimulationException, NumberFormatException, AvajException {
+	private static void loadAircrafts() throws AvajException {
+		
 		try {
-			String info[];
+			String arr[];
 			tower = new WeatherTower();
-			while ((currentLine = br.readLine()) != null) {
-				info = currentLine.split("\\s+");
-				AircraftFactory.newAircraft(info[0], info[1], Integer.parseInt(info[2]),
-					Integer.parseInt(info[3]), Integer.parseInt(info[4])).registerTower(tower);
+			while ((cLine = reader.readLine()) != null) {
+				arr = cLine.split("\\s+");
+				AircraftFactory.newAircraft(arr[0], arr[1], Integer.parseInt(arr[2]),
+					Integer.parseInt(arr[3]), Integer.parseInt(arr[4])).registerTower(tower);
 			}
-			br.close();
-		} catch (IOException | AvajException | NumberFormatException e) {
-			throw new SimulationException(e);
+			reader.close();
+		} catch (Exception e) {
+			throw new AvajException(e.getMessage() + "\nPlease use the following format.\n25\nBaloon B1 2 3 20\nBaloon B2 1 8 66\nJetPlane J1 23 44 32\nHelicopter H1 654 33 20\nHelicopter H2 22 33 44\nHelicopter H3 98 68 99\nBaloon B3 102 22 34\nJetPlane J2 11 99 768\nHelicopter H4 223 23 54\n");
 		}
 	}
 	
@@ -56,14 +48,24 @@ public class Simulator {
 		}
 		
 		try {
-			initSimulation(new File(args[0]));
+			if (args[0].equals("-f")) {
+				if (args.length == 3) {
+					FileW.setFileName(args[1]);
+					initSimulation(new File(args[2]));
+				}else {
+					throw new AvajException("Invalid Arguments");
+				}
+			} else {
+				initSimulation(new File(args[0]));
+				FileW.setFileName("simulation.txt");
+			}
 			loadAircrafts();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return;
 		}
 		
-		while (simulationCycles-- > 0) {
+		while (cycles-- > 0) {
 			tower.ChangeWeather();
 		}
 	}
